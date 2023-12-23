@@ -1,0 +1,35 @@
+{
+  "name": "ymap3-components",
+  "version": "1.0.0",
+  "description": "React wrappers for ymap3 rectified components",
+  "main": "index.ts",
+  "scripts": {
+    "build": "vite build && tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "yandex-map",
+    "map",
+    "ymap",
+    "ymap3",
+    "ymap-components",
+    "ymap3-components",
+    "map-components"
+  ],
+  "author": "https://github.com/fede4ka1245",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/react": "^18.2.45",
+    "@yandex/ymaps3-types": "^0.0.20",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rollup": "^4.9.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.10"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
