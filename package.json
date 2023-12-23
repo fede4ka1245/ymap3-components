@@ -1,6 +1,6 @@
 {
   "name": "ymap3-components",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "React wrappers for ymap3 rectified components",
   "main": "dist/index.umd.js",
   "module": "dist/index.mjs",
@@ -14,9 +14,14 @@
   "keywords": [
     "react",
     "yandex-map",
+    "yandex-maps",
     "map",
     "ymap",
     "ymap3",
+    "ymaps",
+    "ymaps3",
+    "maps",
+    "maps-components",
     "ymap-components",
     "ymap3-components",
     "map-components"

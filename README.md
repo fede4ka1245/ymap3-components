@@ -16,6 +16,8 @@ application much more faster
 import React from "react";
 import {
   YMap,
+  YMapDefaultSchemeLayer,
+  YMapDefaultFeaturesLayer
   // ...other components
 } from "ymapv3-components";
 import { features, LOCATION } from './helpers'
@@ -92,7 +94,7 @@ function Map() {
 export default Map;
 ```
 
-## Install Library <a name="install"></a>
+## Install Library
 
 ```
 npm i ymap3-components
@@ -105,7 +107,7 @@ npm i ymap3-components
 3) For development change your <b>/etc/host</b>
 to proxy <b>domain</b> on your localhost 
 (map will work on <b>http://{domain}:{port}</b>)
-4) [Install](#install) and use library
+4) [Install](#install-library) and use library
 
 For more comprehensive information go to [Official documentation](https://yandex.ru/dev/jsapi30/doc/ru/)
 
@@ -138,6 +140,8 @@ Library provides api for these components:
 - YMapFeatureDataSource
 
 #### YMapComponentsProvider API
+YMapComponentsProvider - root component which has to contain 
+another library's components as child nodes.
 ```typescript
 interface YMapComponentsProviderProps {
   apiKey: string,
@@ -155,4 +159,4 @@ interface YMapComponentsProviderProps {
 
 ## Example 
 
-See example code in /example folder
+See example [here](https://codesandbox.io/p/sandbox/ymap3-components-xk3d74)
