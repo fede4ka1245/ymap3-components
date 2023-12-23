@@ -2,6 +2,7 @@ import { resolve } from "path";
 import { defineConfig } from "vite";
 
 export default defineConfig ({
+  mode: 'production',
   build: {
     lib: {
       entry: resolve(__dirname, "index.ts"),
@@ -9,7 +10,7 @@ export default defineConfig ({
       fileName: "index",
     },
     rollupOptions: {
-      external: ["react"],
+      external: ["react", "react-dom"],
     },
   },
 });
