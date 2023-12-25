@@ -1,56 +1,87 @@
-import React, {useContext, useEffect, useMemo, useState} from 'react';
+import React, {useContext, useLayoutEffect, useState} from 'react';
 import {YMapsContextState} from "./YMapsContextState";
 import {Package, YMapsComponentsState} from "../types";
 
 function YMapComponentWrapper<Type extends React.JSX.IntrinsicAttributes>(
   componentName: string,
-  YMapPackage?: Package
+  YMapPackage?: Package,
+  isRef: boolean = false
 ) {
-  if (YMapPackage) {
-    const component: React.FC<Type> = ({ ...props }) => {
+  let Component: React.FC<Type>;
+  if (isRef) {
+    const component: React.FC<Type> = ({ ...props }, ref) => {
       const { reactify, ymaps } = useContext(YMapsContextState) as YMapsComponentsState;
-      const [Component, setComponent] = useState<React.FC<Type>>()
+      const [isLoaded, setIsLoaded] = useState(false);
 
-      useEffect(() => {
+      useLayoutEffect(() => {
+        if (!YMapPackage) {
+          Component = reactify.module(ymaps)[componentName] as React.FC<Type>;
+          setIsLoaded(true);
+        } else {
+          if ((window as any)[YMapPackage]) {
+            setIsLoaded(true);
+            Component = reactify.module((window as any)[YMapPackage])[componentName] as React.FC<Type>;
+          } else {
+            ymaps.import(YMapPackage as any)
+              .then((data) => {
+                (window as any)[YMapPackage] = data;
+                if (reactify.module(data)) {
+                  setIsLoaded(true);
+                  Component = reactify.module(data as any)[componentName] as React.FC<Type>;
+                }
+              })
+          }
+        }
+      }, []);
+
+      if (!Component || !isLoaded) {
+        return null;
+      }
+
+      return (
+        <Component
+          ref={ref}
+          {...props}
+        />
+      );
+    }
+
+    return React.forwardRef(component as React.ForwardRefRenderFunction<Type, any>);
+  }
+
+  const component: React.FC<Type> = ({ ...props }) => {
+    const { reactify, ymaps } = useContext(YMapsContextState) as YMapsComponentsState;
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    useLayoutEffect(() => {
+      if (!YMapPackage) {
+        Component = reactify.module(ymaps)[componentName] as React.FC<Type>;
+        setIsLoaded(true);
+      } else {
         if ((window as any)[YMapPackage]) {
-          setComponent(reactify.module((window as any)[YMapPackage])[componentName] as React.FC<Type>);
+          setIsLoaded(true);
+          Component = reactify.module((window as any)[YMapPackage])[componentName] as React.FC<Type>;
         } else {
           ymaps.import(YMapPackage as any)
             .then((data) => {
               (window as any)[YMapPackage] = data;
               if (reactify.module(data)) {
-                setComponent(reactify.module(data as any)[componentName] as React.FC<Type>);
+                setIsLoaded(true);
+                Component = reactify.module(data as any)[componentName] as React.FC<Type>;
               }
             })
         }
-      }, []);
-
-      if (!Component) {
-        return null;
       }
+    }, []);
 
-      return (
-        <>
-          <Component
-            {...props}
-          />
-        </>
-      );
+    if (!Component || !isLoaded) {
+      return null;
     }
 
-    return component;
-  }
-
-  const component: React.FC<Type> = ({ ...props }) => {
-    const { reactify, ymaps } = useContext(YMapsContextState) as YMapsComponentsState;
-    const Component = useMemo(() => reactify.module(ymaps)[componentName] as React.FC<Type>, [reactify, ymaps]);
-
     return (
-      <>
-        <Component
-          {...props}
-        />
-      </>
+      <Component
+        {...props}
+      />
     );
   }
 

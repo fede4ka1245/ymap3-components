@@ -1,6 +1,7 @@
 import YMapComponentWrapper from "./YMapComponentWrapper";
 import YMapComponentsProvider from "./YMapComponentsProvider";
 import {
+  YMap as YMapType,
   YMapThemeContext as ThemeContextProps,
   YMapProps,
   YMapLayerProps,
@@ -29,7 +30,7 @@ const YMapGeolocationControl = YMapComponentWrapper<YMapGeolocationControlType &
 const YMapZoomControl = YMapComponentWrapper<YMapZoomControlType & React.JSX.IntrinsicAttributes>('YMapZoomControl', Package.Controls);
 const YMapClusterer = YMapComponentWrapper<YMapClusterrType & React.JSX.IntrinsicAttributes>('YMapClusterer', Package.Clusterer);
 const YMapDefaultMarker = YMapComponentWrapper<YMapDefaultMarkerType & React.JSX.IntrinsicAttributes>('YMapDefaultMarker', Package.Markers);
-const YMap = YMapComponentWrapper<YMapProps & React.JSX.IntrinsicAttributes>('YMap')
+const YMap = YMapComponentWrapper<YMapProps & React.JSX.IntrinsicAttributes>('YMap', undefined, true) as React.ForwardRefRenderFunction<YMapProps & React.JSX.IntrinsicAttributes, YMapType>;
 const ThemeContext = YMapComponentWrapper<ThemeContextProps & React.JSX.IntrinsicAttributes>('ThemeContext');
 const YMapDefaultSchemeLayer = YMapComponentWrapper<YMapDefaultSchemeLayerProps & React.JSX.IntrinsicAttributes>('YMapDefaultSchemeLayer');
 const YMapDefaultFeaturesLayer = YMapComponentWrapper<YMapDefaultFeaturesLayerProps & React.JSX.IntrinsicAttributes>('YMapDefaultFeaturesLayer');

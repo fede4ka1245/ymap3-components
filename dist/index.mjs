@@ -1,101 +1,111 @@
-import o, { createContext as d, useContext as m, useState as M, useEffect as f, useMemo as w, useLayoutEffect as x } from "react";
-import C from "react-dom";
-const u = d({});
-function n(t, a) {
-  return a ? ({ ...e }) => {
-    const { reactify: r, ymaps: p } = m(u), [c, Y] = M();
-    return f(() => {
-      window[a] ? Y(r.module(window[a])[t]) : p.import(a).then((y) => {
-        window[a] = y, r.module(y) && Y(r.module(y)[t]);
-      });
-    }, []), c ? /* @__PURE__ */ o.createElement(o.Fragment, null, /* @__PURE__ */ o.createElement(
-      c,
+import i, { createContext as h, useContext as d, useState as M, useLayoutEffect as w, useMemo as L, useEffect as D } from "react";
+import x from "react-dom";
+const f = h({});
+function n(t, e, p = !1) {
+  let r;
+  if (p) {
+    const c = ({ ...a }, s) => {
+      const { reactify: u, ymaps: m } = d(f), [y, Y] = M(!1);
+      return w(() => {
+        e ? window[e] ? (Y(!0), r = u.module(window[e])[t]) : m.import(e).then((C) => {
+          window[e] = C, u.module(C) && (Y(!0), r = u.module(C)[t]);
+        }) : (r = u.module(m)[t], Y(!0));
+      }, []), !r || !y ? null : /* @__PURE__ */ i.createElement(
+        r,
+        {
+          ref: s,
+          ...a
+        }
+      );
+    };
+    return i.forwardRef(c);
+  }
+  return ({ ...c }) => {
+    const { reactify: a, ymaps: s } = d(f), [u, m] = M(!1);
+    return w(() => {
+      e ? window[e] ? (m(!0), r = a.module(window[e])[t]) : s.import(e).then((y) => {
+        window[e] = y, a.module(y) && (m(!0), r = a.module(y)[t]);
+      }) : (r = a.module(s)[t], m(!0));
+    }, []), !r || !u ? null : /* @__PURE__ */ i.createElement(
+      r,
       {
-        ...e
+        ...c
       }
-    )) : null;
-  } : ({ ...l }) => {
-    const { reactify: e, ymaps: r } = m(u), p = w(() => e.module(r)[t], [e, r]);
-    return /* @__PURE__ */ o.createElement(o.Fragment, null, /* @__PURE__ */ o.createElement(
-      p,
-      {
-        ...l
-      }
-    ));
+    );
   };
 }
-const h = async (t, a = "ru_RU") => new Promise(async (s, l) => {
+const H = async (t, e = "ru_RU") => new Promise(async (p, r) => {
   if (window.ymaps3) {
-    const e = window.ymaps3;
-    await e.ready;
-    const p = (await e.import("@yandex/ymaps3-reactify")).reactify.bindTo(o, C);
-    s({
-      ymaps: e,
-      reactify: p
+    const o = window.ymaps3;
+    await o.ready;
+    const a = (await o.import("@yandex/ymaps3-reactify")).reactify.bindTo(i, x);
+    p({
+      ymaps: o,
+      reactify: a
     });
   } else {
-    const e = document.createElement("script");
-    document.body.appendChild(e), e.type = "text/javascript", e.src = `https://api-maps.yandex.ru/v3/?apikey=${t}&lang=${a}`, e.onload = async () => {
-      const r = window.ymaps3;
-      await r.ready;
-      const c = (await r.import("@yandex/ymaps3-reactify")).reactify.bindTo(o, C);
-      s({
-        ymaps: r,
-        reactify: c
+    const o = document.createElement("script");
+    document.body.appendChild(o), o.type = "text/javascript", o.src = `https://api-maps.yandex.ru/v3/?apikey=${t}&lang=${e}`, o.onload = async () => {
+      const c = window.ymaps3;
+      await c.ready;
+      const s = (await c.import("@yandex/ymaps3-reactify")).reactify.bindTo(i, x);
+      p({
+        ymaps: c,
+        reactify: s
       });
-    }, e.onerror = l;
+    }, o.onerror = r;
   }
-}), D = ({ apiKey: t, lang: a, children: s, onLoad: l }) => {
-  const [e, r] = M();
-  return x(() => {
-    h(t, a).then((p) => {
-      r(p), l && l(p);
+}), S = ({ apiKey: t, lang: e, children: p, onLoad: r }) => {
+  const [o, c] = M();
+  return w(() => {
+    H(t, e).then((a) => {
+      c(a), r && r(a);
     });
-  }, []), e ? /* @__PURE__ */ o.createElement(u.Provider, { value: e }, s) : /* @__PURE__ */ o.createElement(o.Fragment, null);
-}, L = o.memo(D, (t, a) => t.apiKey === a.apiKey && t.lang === a.lang);
-var i = /* @__PURE__ */ ((t) => (t.CartesianProjection = "@yandex/ymaps3-cartesian-projection@0.0.1", t.Clusterer = "@yandex/ymaps3-clusterer@0.0.1", t.Controls = "@yandex/ymaps3-controls@0.0.1", t.Hint = "@yandex/ymaps3-hint@0.0.1", t.Markers = "@yandex/ymaps3-markers@0.0.1", t.SphericalMercatorProjection = "@yandex/ymaps3-spherical-mercator-projection@0.0.1", t))(i || {});
-const E = d({ hint: void 0 }), H = ({ children: t, context: a }) => {
-  const s = m(a);
-  return /* @__PURE__ */ o.createElement(E.Provider, { value: s }, t);
-}, v = ({ children: t, hint: a }) => {
-  const { reactify: s, ymaps: l } = m(u), [e, r] = M(), p = w(() => {
-    if (e) {
-      const c = window[i.Hint];
-      return s.module(c).YMapHint;
+  }, []), o ? /* @__PURE__ */ i.createElement(f.Provider, { value: o }, p) : /* @__PURE__ */ i.createElement(i.Fragment, null);
+}, T = i.memo(S, (t, e) => t.apiKey === e.apiKey && t.lang === e.lang);
+var l = /* @__PURE__ */ ((t) => (t.CartesianProjection = "@yandex/ymaps3-cartesian-projection@0.0.1", t.Clusterer = "@yandex/ymaps3-clusterer@0.0.1", t.Controls = "@yandex/ymaps3-controls@0.0.1", t.Hint = "@yandex/ymaps3-hint@0.0.1", t.Markers = "@yandex/ymaps3-markers@0.0.1", t.SphericalMercatorProjection = "@yandex/ymaps3-spherical-mercator-projection@0.0.1", t))(l || {});
+const E = h({ hint: void 0 }), v = ({ children: t, context: e }) => {
+  const p = d(e);
+  return /* @__PURE__ */ i.createElement(E.Provider, { value: p }, t);
+}, j = ({ children: t, hint: e }) => {
+  const { reactify: p, ymaps: r } = d(f), [o, c] = M(), a = L(() => {
+    if (o) {
+      const s = window[l.Hint];
+      return p.module(s).YMapHint;
     }
-  }, [e]);
-  return f(() => {
-    if (window[i.Hint]) {
-      const c = window[i.Hint];
-      r(s.module(c).YMapHintContext);
+  }, [o]);
+  return D(() => {
+    if (window[l.Hint]) {
+      const s = window[l.Hint];
+      c(p.module(s).YMapHintContext);
     } else
-      l.import(i.Hint).then((c) => {
-        window[i.Hint] = c, s.module(c) && r(s.module(c).YMapHintContext);
+      r.import(l.Hint).then((s) => {
+        window[l.Hint] = s, p.module(s) && c(p.module(s).YMapHintContext);
       });
-  }, []), !p || !e || !t ? /* @__PURE__ */ o.createElement(o.Fragment, null) : /* @__PURE__ */ o.createElement(p, { hint: a }, /* @__PURE__ */ o.createElement(H, { context: e }, t));
-}, R = n("YMapGeolocationControl", i.Controls), T = n("YMapZoomControl", i.Controls), j = n("YMapClusterer", i.Clusterer), b = n("YMapDefaultMarker", i.Markers), $ = n("YMap"), B = n("ThemeContext"), G = n("YMapDefaultSchemeLayer"), K = n("YMapDefaultFeaturesLayer"), W = n("YMapLayer"), Z = n("YMapControl"), O = n("YMapControls"), U = n("YMapControlButton"), _ = n("YMapTileDataSource"), q = n("YMapMarker"), z = n("YMapListener"), A = n("YMapFeature"), I = n("YMapDefaultSatelliteLayer"), J = n("YMapCollection"), Q = n("YMapContainer"), V = n("YMapFeatureDataSource");
+  }, []), !a || !o || !t ? /* @__PURE__ */ i.createElement(i.Fragment, null) : /* @__PURE__ */ i.createElement(a, { hint: e }, /* @__PURE__ */ i.createElement(v, { context: o }, t));
+}, b = n("YMapGeolocationControl", l.Controls), $ = n("YMapZoomControl", l.Controls), B = n("YMapClusterer", l.Clusterer), G = n("YMapDefaultMarker", l.Markers), I = n("YMap", void 0, !0), K = n("ThemeContext"), W = n("YMapDefaultSchemeLayer"), Z = n("YMapDefaultFeaturesLayer"), O = n("YMapLayer"), U = n("YMapControl"), _ = n("YMapControls"), q = n("YMapControlButton"), z = n("YMapTileDataSource"), A = n("YMapMarker"), J = n("YMapListener"), Q = n("YMapFeature"), V = n("YMapDefaultSatelliteLayer"), X = n("YMapCollection"), N = n("YMapContainer"), k = n("YMapFeatureDataSource");
 export {
-  B as ThemeContext,
-  $ as YMap,
-  j as YMapClusterer,
-  J as YMapCollection,
-  L as YMapComponentsProvider,
-  Q as YMapContainer,
-  Z as YMapControl,
-  U as YMapControlButton,
-  O as YMapControls,
-  K as YMapDefaultFeaturesLayer,
-  b as YMapDefaultMarker,
-  I as YMapDefaultSatelliteLayer,
-  G as YMapDefaultSchemeLayer,
-  A as YMapFeature,
-  V as YMapFeatureDataSource,
-  R as YMapGeolocationControl,
-  v as YMapHint,
+  K as ThemeContext,
+  I as YMap,
+  B as YMapClusterer,
+  X as YMapCollection,
+  T as YMapComponentsProvider,
+  N as YMapContainer,
+  U as YMapControl,
+  q as YMapControlButton,
+  _ as YMapControls,
+  Z as YMapDefaultFeaturesLayer,
+  G as YMapDefaultMarker,
+  V as YMapDefaultSatelliteLayer,
+  W as YMapDefaultSchemeLayer,
+  Q as YMapFeature,
+  k as YMapFeatureDataSource,
+  b as YMapGeolocationControl,
+  j as YMapHint,
   E as YMapHintContext,
-  W as YMapLayer,
-  z as YMapListener,
-  q as YMapMarker,
-  _ as YMapTileDataSource,
-  T as YMapZoomControl
+  O as YMapLayer,
+  J as YMapListener,
+  A as YMapMarker,
+  z as YMapTileDataSource,
+  $ as YMapZoomControl
 };
