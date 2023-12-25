@@ -24,7 +24,7 @@ import { features, LOCATION } from './helpers'
 
 function Map() {
   return (
-    <YMapComponentsProvider apiKey={process.env.REACT_API_YMAP_KEY}>
+    <YMapComponentsProvider apiKey={process.env.REACT_APP_YMAP_KEY}>
       <YMap location={location}>
         <YMapDefaultSchemeLayer />
         <YMapDefaultFeaturesLayer />
@@ -71,8 +71,10 @@ function Map() {
         reactify,
         ymaps
       });
-      // and other logic which is not connected with rendering to load 
-      // ymap modules like YMapDefaultMarker
+      /*
+      and other logic which is not connected with rendering
+      to load ymap modules like YMapDefaultMarker
+      */
     }
   }, [])
   
@@ -153,7 +155,6 @@ interface YMapComponentsProviderProps {
   children: ReactNode | ReactNode []
 }
 ```
-
 
 #### Other components has same api as provided in [Official documentation](https://yandex.ru/dev/jsapi30/doc/ru/)
 

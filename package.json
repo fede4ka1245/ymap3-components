@@ -1,6 +1,6 @@
 {
   "name": "ymap3-components",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "React wrappers for ymaps3 rectified components",
   "main": "dist/index.umd.js",
   "module": "dist/index.mjs",
@@ -12,6 +12,8 @@
     "build": "vite build && tsc"
   },
   "keywords": [
+    "react-yandex-maps",
+    "yandex-map-react",
     "react",
     "yandex-map",
     "yandex-maps",
@@ -24,7 +26,9 @@
     "maps-components",
     "ymap-components",
     "ymap3-components",
-    "map-components"
+    "map-components",
+    "react-component",
+    "yandex"
   ],
   "author": "https://github.com/fede4ka1245",
   "repository": {
