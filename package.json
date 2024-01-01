@@ -1,6 +1,6 @@
 {
   "name": "ymap3-components",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "React wrappers for ymaps3 rectified components",
   "main": "dist/index.umd.js",
   "module": "dist/index.mjs",
