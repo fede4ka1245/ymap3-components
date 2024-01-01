@@ -34,6 +34,4 @@ const YMapComponentsProvider: React.FC<YMapComponentsProviderProps> = ({ apiKey,
   );
 };
 
-export default React.memo<YMapComponentsProviderProps>(YMapComponentsProvider, (prevProps, nextProps) => {
-  return prevProps.apiKey === nextProps.apiKey && prevProps.lang === nextProps.lang;
-});
+export default React.memo<YMapComponentsProviderProps>(YMapComponentsProvider);

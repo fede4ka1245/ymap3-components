@@ -1,5 +1,5 @@
 import YMapComponentsProvider from "./YMapComponentsProvider";
-import { YMapThemeContext as ThemeContextProps, YMapProps, YMapLayerProps, YMapControlsProps, YMapTileDataSourceProps, YMapListenerProps, YMapDefaultFeaturesLayerProps, YMapDefaultSchemeLayerProps, YMapCollection, YMapContainerProps, YMapDefaultSatelliteLayerProps, YMapFeatureDataSourceProps } from "@yandex/ymaps3-types";
+import { YMap as YMapType, YMapThemeContext as ThemeContextProps, YMapProps, YMapLayerProps, YMapControlsProps, YMapTileDataSourceProps, YMapListenerProps, YMapDefaultFeaturesLayerProps, YMapDefaultSchemeLayerProps, YMapCollection, YMapContainerProps, YMapDefaultSatelliteLayerProps, YMapFeatureDataSourceProps } from "@yandex/ymaps3-types";
 import React from "react";
 import { YMapGeolocationControl as YMapGeolocationControlType, YMapZoomControl as YMapZoomControlType } from "@yandex/ymaps3-types/packages/controls";
 import { YMapClusterer as YMapClusterrType } from "@yandex/ymaps3-types/packages/clusterer";
@@ -9,7 +9,7 @@ declare const YMapGeolocationControl: React.FC<YMapGeolocationControlType & Reac
 declare const YMapZoomControl: React.FC<YMapZoomControlType & React.JSX.IntrinsicAttributes> | React.ForwardRefExoticComponent<Omit<any, "ref"> & React.RefAttributes<YMapZoomControlType & React.JSX.IntrinsicAttributes>>;
 declare const YMapClusterer: React.FC<YMapClusterrType & React.JSX.IntrinsicAttributes> | React.ForwardRefExoticComponent<Omit<any, "ref"> & React.RefAttributes<YMapClusterrType & React.JSX.IntrinsicAttributes>>;
 declare const YMapDefaultMarker: React.FC<YMapDefaultMarkerType & React.JSX.IntrinsicAttributes> | React.ForwardRefExoticComponent<Omit<any, "ref"> & React.RefAttributes<YMapDefaultMarkerType & React.JSX.IntrinsicAttributes>>;
-declare const YMap: React.FC<YMapProps & React.JSX.IntrinsicAttributes> | React.ForwardRefExoticComponent<Omit<any, "ref"> & React.RefAttributes<YMapProps & React.JSX.IntrinsicAttributes>>;
+declare const YMap: React.ForwardRefRenderFunction<YMapProps & React.JSX.IntrinsicAttributes, YMapType>;
 declare const ThemeContext: React.FC<ThemeContextProps & React.JSX.IntrinsicAttributes> | React.ForwardRefExoticComponent<Omit<any, "ref"> & React.RefAttributes<ThemeContextProps & React.JSX.IntrinsicAttributes>>;
 declare const YMapDefaultSchemeLayer: React.FC<YMapDefaultSchemeLayerProps & React.JSX.IntrinsicAttributes> | React.ForwardRefExoticComponent<Omit<any, "ref"> & React.RefAttributes<YMapDefaultSchemeLayerProps & React.JSX.IntrinsicAttributes>>;
 declare const YMapDefaultFeaturesLayer: React.FC<YMapDefaultFeaturesLayerProps & React.JSX.IntrinsicAttributes> | React.ForwardRefExoticComponent<Omit<any, "ref"> & React.RefAttributes<YMapDefaultFeaturesLayerProps & React.JSX.IntrinsicAttributes>>;
