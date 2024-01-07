@@ -1,7 +1,7 @@
 {
   "name": "ymap3-components",
-  "version": "1.0.6",
-  "description": "Lib to get ymaps3 components via import",
+  "version": "1.0.7",
+  "description": "Get ymaps3 components via import",
   "main": "dist/index.umd.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",

@@ -2,9 +2,9 @@
 
 ### Library to get components of ymaps3 via <code>import</code>
 **This library is an alternative way of getting
-Yandex map components:** use simple <code>import {...} from "ymap3-components"</code>
-instead of using asynchronous <code>window.ymaps3.import</code> and
-<code>window.ymaps3.import</code> 
+Yandex map components:** use <code>import</code>
+instead of creating script and getting components 
+via asynchronous <code>window.ymaps3.import</code>
 
 Library is written on typescript with <b>@yandex/ymaps3-types</b>.
 ## Install Library
@@ -15,9 +15,10 @@ npm i ymap3-components
 
 ## Motivation
 
-- easier and clearer than suggestions in [Official documentation](https://yandex.ru/dev/jsapi30/doc/ru/)
+- keeps your components simple
+- this is easier than suggestions in [Official documentation](https://yandex.ru/dev/jsapi30/doc/ru/)
 - no need to write logic of loading components and modules for them
-- no need to create script or configure externals in webpack for ymaps v3
+- no need to create script or configure externals in webpack
 
 ####  ✅ Your code with this library
 ```javascript jsx
@@ -160,5 +161,6 @@ interface YMapComponentsProviderProps {
 - YMapFeatureDataSource
 
 ## Example
-
 See example [in codesandbox](https://codesandbox.io/p/sandbox/ymap3-components-xk3d74)
+
+### Thanks to yandex for such awesome maps
