@@ -1,15 +1,23 @@
 # ymap3-components
 
-Wrapper above react wrapper yandex map v3 api :3
+### Library to get components of ymaps3 via <code>import</code>
+**This library is an alternative way of getting
+Yandex map components:** use simple <code>import {...} from "ymap3-components"</code>
+instead of using asynchronous <code>window.ymaps3.import</code> and
+<code>window.ymaps3.import</code> 
 
 Library is written on typescript with <b>@yandex/ymaps3-types</b>.
+## Install Library
+
+```
+npm i ymap3-components
+```
 
 ## Motivation
 
-- With this lib you can create yandex map in your react
-application much more faster
-- You will write less code
-- Your code will be much more beautiful
+- easier and clearer than suggestions in [Official documentation](https://yandex.ru/dev/jsapi30/doc/ru/)
+- no need to write logic of loading components and modules for them
+- no need to create script or configure externals in webpack for ymaps v3
 
 ####  ✅ Your code with this library
 ```javascript jsx
@@ -19,7 +27,7 @@ import {
   YMapDefaultSchemeLayer,
   YMapDefaultFeaturesLayer
   // ...other components
-} from "ymapv3-components";
+} from "ymap3-components";
 import { features, LOCATION } from './helpers'
 
 function Map() {
@@ -96,12 +104,6 @@ function Map() {
 export default Map;
 ```
 
-## Install Library
-
-```
-npm i ymap3-components
-```
-
 ## Getting Stated
 
 1) Get api key for [map js api](https://developer.tech.yandex.ru/services/3)
@@ -115,7 +117,23 @@ For more comprehensive information go to [Official documentation](https://yandex
 
 ## API 
 
-Library provides api for these components: 
+#### YMapComponentsProvider API
+YMapComponentsProvider - root component which has to contain
+another library's components as child nodes.
+```typescript
+interface YMapComponentsProviderProps {
+  apiKey: string,
+  lang?: string,
+  onLoad?: (params: {
+    reactify: Reactify;
+    ymaps: typeof import("@yandex/ymaps3-types/index");
+  }) => any
+  children: ReactNode | ReactNode []
+}
+```
+
+#### Other components has same api as provided in [Official documentation](https://yandex.ru/dev/jsapi30/doc/ru/)
+#### Library provides api for these components: 
 
 - YMapComponentsProvider
 - YMap
@@ -141,23 +159,6 @@ Library provides api for these components:
 - YMapContainer
 - YMapFeatureDataSource
 
-#### YMapComponentsProvider API
-YMapComponentsProvider - root component which has to contain 
-another library's components as child nodes.
-```typescript
-interface YMapComponentsProviderProps {
-  apiKey: string,
-  lang?: string,
-  onLoad?: (params: {
-    reactify: Reactify;
-    ymaps: typeof import("@yandex/ymaps3-types/index");
-  }) => any
-  children: ReactNode | ReactNode []
-}
-```
+## Example
 
-#### Other components has same api as provided in [Official documentation](https://yandex.ru/dev/jsapi30/doc/ru/)
-
-## Example 
-
-See example [here](https://codesandbox.io/p/sandbox/ymap3-components-xk3d74)
+See example [in codesandbox](https://codesandbox.io/p/sandbox/ymap3-components-xk3d74)
