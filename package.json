@@ -39,11 +39,9 @@
     "url": "https://github.com/fede4ka1245/ymap3-components.git/issues"
   },
   "license": "ISC",
-  "dependencies": {
-    "@yandex/ymaps3-types": "^0.0.20"
-  },
   "devDependencies": {
     "@types/react": "^18.2.45",
+    "@yandex/ymaps3-types": "^0.0.20",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rollup": "^4.9.1",
