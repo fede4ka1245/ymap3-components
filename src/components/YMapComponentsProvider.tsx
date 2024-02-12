@@ -1,26 +1,31 @@
-import React, {ReactNode, useLayoutEffect, useState} from 'react';
-import {YMapDefaultModules, YMapsComponentsState} from "../types";
-import {YMapsContextState} from "./YMapsContextState";
-import {initYamaps} from "../shared";
+import React, { ReactNode, useLayoutEffect, useState } from "react";
+import { YMapDefaultModules, YMapsComponentsState } from "../types";
+import { YMapsContextState } from "./YMapsContextState";
+import { initYamaps } from "../shared";
+import useIsomorphicEffect from "../hooks/useIsomorphicEffect";
 
 export interface YMapComponentsProviderProps {
-  apiKey: string,
-  lang?: string,
-  onLoad?: (params: YMapDefaultModules) => any
-  children: ReactNode | ReactNode []
+  apiKey: string;
+  lang?: string;
+  onLoad?: (params: YMapDefaultModules) => any;
+  children: ReactNode | ReactNode[];
 }
 
-const YMapComponentsProvider: React.FC<YMapComponentsProviderProps> = ({ apiKey, lang, children, onLoad }) => {
+const YMapComponentsProvider: React.FC<YMapComponentsProviderProps> = ({
+  apiKey,
+  lang,
+  children,
+  onLoad,
+}) => {
   const [state, setState] = useState<YMapsComponentsState>();
 
-  useLayoutEffect(() => {
-    initYamaps(apiKey, lang)
-      .then((result) => {
-        setState(result);
-        if (onLoad) {
-          onLoad(result);
-        }
-      })
+  useIsomorphicEffect(() => {
+    initYamaps(apiKey, lang).then((result) => {
+      setState(result);
+      if (onLoad) {
+        onLoad(result);
+      }
+    });
   }, []);
 
   if (!state) {
@@ -29,7 +34,7 @@ const YMapComponentsProvider: React.FC<YMapComponentsProviderProps> = ({ apiKey,
 
   return (
     <YMapsContextState.Provider value={state}>
-      { children }
+      {children}
     </YMapsContextState.Provider>
   );
 };
