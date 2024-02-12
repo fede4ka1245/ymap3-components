@@ -1,3 +1,4 @@
+import { YMap } from "@yandex/ymaps3-types";
 import { YMapDefaultModules, YMapsV3 } from "../types";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -12,6 +13,8 @@ export const initYamaps = async (
       await ymaps.ready;
       const ymaps3Reactify = await ymaps.import("@yandex/ymaps3-reactify");
       const reactify = ymaps3Reactify.reactify.bindTo(React, ReactDOM);
+
+      const { YMap } = reactify.module(ymaps);
 
       resolve({
         ymaps,
