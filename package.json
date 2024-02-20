@@ -1,6 +1,6 @@
 {
   "name": "ymap3-components",
-  "version": "1.0.14",
+  "version": "1.1.0",
   "description": "React yamps3 wrapper. Get ymaps3 components via import",
   "main": "dist/index.umd.js",
   "module": "dist/index.mjs",
@@ -33,11 +33,10 @@
     "url": "https://github.com/fede4ka1245/ymap3-components.git/issues"
   },
   "license": "ISC",
-  "dependencies": {
-    "@yandex/ymaps3-types": "^0.0.20"
-  },
   "devDependencies": {
     "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.19",
+    "@yandex/ymaps3-types": "^0.0.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rollup": "^4.9.1",

@@ -17,6 +17,11 @@ Library is written on typescript with <b>@yandex/ymaps3-types</b>.
 npm i ymap3-components
 ```
 
+## Usage with typescript
+```
+npm i -D @yandex/ymaps3-types@latest
+```
+
 ## Motivation
 
 - keeps your components simple
