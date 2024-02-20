@@ -1,7 +1,7 @@
 # ymap3-components
 
-![NPM Version](https://img.shields.io/npm/v/ymap3-components?logo=npm&color=gray)
-![npm bundle size](https://img.shields.io/bundlephobia/minzip/ymap3-components)
+[![NPM Version](https://img.shields.io/npm/v/ymap3-components?logo=npm&color=gray)](https://www.npmjs.com/package/ymap3-components?activeTab=readme)
+[![npm bundle size](https://img.shields.io/bundlephobia/minzip/ymap3-components)](https://www.npmjs.com/package/ymap3-components?activeTab=readme)
 
 
 ### Library to get components of ymaps3 via <code>import</code>
