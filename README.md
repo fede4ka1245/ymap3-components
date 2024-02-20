@@ -114,7 +114,7 @@ to proxy <b>domain</b> on your localhost
 (map will work on <b>http://{domain}:{port}</b>)
 4) [Install](#install-library) and use library
 
-For more comprehensive information go to [Official documentation](https://yandex.ru/dev/jsapi30/doc/ru/)
+Check example in codesandbox [below](#example). For more comprehensive information go to [Official documentation](https://yandex.ru/dev/jsapi30/doc/ru/)
 
 ## API 
 
@@ -162,5 +162,3 @@ interface YMapComponentsProviderProps {
 
 ## Example
 See example [in codesandbox](https://codesandbox.io/p/sandbox/ymap3-components-xk3d74)
-
-### Thanks to yandex for such awesome maps
