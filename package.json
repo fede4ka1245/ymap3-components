@@ -1,7 +1,7 @@
 {
   "name": "ymap3-components",
-  "version": "1.0.9",
-  "description": "Get ymaps3 components via import",
+  "version": "1.0.10",
+  "description": "React yamps3 wrapper. Get ymaps3 components via import",
   "main": "dist/index.umd.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -12,23 +12,17 @@
     "build": "vite build && tsc"
   },
   "keywords": [
-    "react-yandex-maps",
-    "yandex-map-react",
-    "react",
-    "yandex-map",
-    "yandex-maps",
-    "map",
-    "ymap",
+    "ymaps3",
+    "react-ymaps3",
     "ymap3",
+    "ymap",
+    "ymaps3-wrapper",
+    "react-yandex-maps",
+    "yandex-maps",
     "ymaps",
     "ymaps3",
-    "maps",
-    "maps-components",
-    "ymap-components",
-    "ymap3-components",
-    "map-components",
-    "react-component",
-    "yandex"
+    "ymaps3-components",
+    "yandex-map"
   ],
   "author": "https://github.com/fede4ka1245",
   "repository": {
