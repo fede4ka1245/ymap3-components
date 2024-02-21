@@ -22,6 +22,9 @@ npm i ymap3-components
 npm i -D @yandex/ymaps3-types@latest
 ```
 
+## Example
+See example [in codesandbox](https://codesandbox.io/p/sandbox/elegant-burnell-wxn9cy)
+
 ## Motivation
 
 - keeps your components simple
@@ -168,6 +171,3 @@ interface YMapComponentsProviderProps {
 - YMapCollection
 - YMapContainer
 - YMapFeatureDataSource
-
-## Example
-See example [in codesandbox](https://codesandbox.io/p/sandbox/ymap3-components-xk3d74)
