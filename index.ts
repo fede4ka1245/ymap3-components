@@ -1,30 +1,5 @@
-import {
-  YMapComponentsProvider,
-  YMap,
-  YMapHintContext,
-  YMapDefaultSchemeLayer,
-  YMapDefaultFeaturesLayer,
-  YMapLayer,
-  YMapControl,
-  YMapControls,
-  YMapControlButton,
-  YMapTileDataSource,
-  YMapMarker,
-  YMapListener,
-  YMapFeature,
-  YMapDefaultSatelliteLayer,
-  YMapCollection,
-  YMapContainer,
-  YMapFeatureDataSource,
-  ThemeContext,
-  YMapHint,
-  YMapClusterer,
-  YMapZoomControl,
-  YMapGeolocationControl,
-  YMapDefaultMarker
-} from './src/components';
-
 export {
+  YMapCustomClusterer,
   YMapDefaultMarker,
   YMapHintContext,
   YMapHint,
@@ -48,4 +23,4 @@ export {
   YMapCollection,
   YMapContainer,
   YMapFeatureDataSource,
-};
+} from './src/components';

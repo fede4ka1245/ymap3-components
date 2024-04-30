@@ -12,6 +12,8 @@ import * as MarkersReact from '@yandex/ymaps3-types/packages/markers/react';
 import * as Clusterer from '@yandex/ymaps3-types/packages/clusterer';
 import * as ClustererReact from '@yandex/ymaps3-types/packages/clusterer/react';
 
+export { YMapCustomClusterer } from "./YMapCustomClusterer";
+
 export {
   YMapHint,
   YMapHintContext,
