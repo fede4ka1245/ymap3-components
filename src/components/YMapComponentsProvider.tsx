@@ -8,6 +8,7 @@ export interface YMapComponentsProviderProps {
   apiKey: string;
   lang?: string;
   onLoad?: (params: YMapDefaultModules) => any;
+  onError?: () => void;
   children: ReactNode | ReactNode[];
 }
 
@@ -16,16 +17,19 @@ const YMapComponentsProvider: React.FC<YMapComponentsProviderProps> = ({
   lang,
   children,
   onLoad,
+  onError
 }) => {
   const [state, setState] = useState<YMapsComponentsState>();
 
   useIsomorphicEffect(() => {
-    initYamaps(apiKey, lang).then((result) => {
-      setState(result);
-      if (onLoad) {
-        onLoad(result);
-      }
-    });
+    initYamaps(apiKey, lang)
+      .then((result) => {
+        setState(result);
+        onLoad?.(result);
+      })
+      .catch(() => {
+        onError?.()
+      });
   }, []);
 
   if (!state) {
