@@ -8,7 +8,7 @@ export interface YMapComponentsProviderProps {
   apiKey: string;
   lang?: string;
   onLoad?: (params: YMapDefaultModules) => any;
-  onError?: () => void;
+  onError?: (error: any) => void;
   children: ReactNode | ReactNode[];
 }
 
@@ -27,8 +27,8 @@ const YMapComponentsProvider: React.FC<YMapComponentsProviderProps> = ({
         setState(result);
         onLoad?.(result);
       })
-      .catch(() => {
-        onError?.()
+      .catch((e) => {
+        onError?.(e)
       });
   }, []);
 

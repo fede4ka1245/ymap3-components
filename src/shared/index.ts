@@ -40,8 +40,8 @@ export const initYamaps = async (
 
         script.onerror = reject;
       }
-    } catch(_error){
-      reject()
+    } catch(e){
+      (e)
     }
   });
 };
