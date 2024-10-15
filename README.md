@@ -136,12 +136,13 @@ YMapComponentsProvider - root component which has to contain
 another library's components as child nodes.
 ```typescript
 interface YMapComponentsProviderProps {
-  apiKey: string,
-  lang?: string,
+  apiKey: string
+  lang?: string
   onLoad?: (params: {
     reactify: Reactify;
     ymaps: typeof import("@yandex/ymaps3-types/index");
   }) => any
+  onError: (e?: unknown) => void
   children: ReactNode | ReactNode []
 }
 ```
