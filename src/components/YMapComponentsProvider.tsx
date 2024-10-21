@@ -7,6 +7,8 @@ import useIsomorphicEffect from "../hooks/useIsomorphicEffect";
 export interface YMapComponentsProviderProps {
   apiKey: string;
   lang?: string;
+  coordorder?: 'latlong' | 'longlat';
+  mode?: 'release' | 'debug';
   onLoad?: (params: YMapDefaultModules) => any;
   onError?: (error: any) => void;
   children: ReactNode | ReactNode[];
@@ -15,6 +17,8 @@ export interface YMapComponentsProviderProps {
 const YMapComponentsProvider: React.FC<YMapComponentsProviderProps> = ({
   apiKey,
   lang,
+  coordorder,
+  mode,
   children,
   onLoad,
   onError
@@ -22,7 +26,7 @@ const YMapComponentsProvider: React.FC<YMapComponentsProviderProps> = ({
   const [state, setState] = useState<YMapsComponentsState>();
 
   useIsomorphicEffect(() => {
-    initYamaps(apiKey, lang)
+    initYamaps(apiKey, lang, coordorder, mode)
       .then((result) => {
         setState(result);
         onLoad?.(result);
