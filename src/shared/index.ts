@@ -5,7 +5,9 @@ import ReactDOM from "react-dom";
 
 export const initYamaps = async (
   key: string,
-  lang: string = "ru_RU"
+  lang: string = "ru_RU",
+  coordorder: 'latlong' | 'longlat' = 'latlong',
+  mode: 'release' | 'debug' = 'release',
 ): Promise<YMapDefaultModules> => {
   return new Promise(async (resolve, reject) => {
     try { 
@@ -25,7 +27,7 @@ export const initYamaps = async (
         const script = document.createElement("script");
         document.body.appendChild(script);
         script.type = "text/javascript";
-        script.src = `https://api-maps.yandex.ru/v3/?apikey=${key}&lang=${lang}`;
+        script.src = `https://api-maps.yandex.ru/v3/?apikey=${key}&lang=${lang}&coordorder=${coordorder}&mode=${mode}`;
         script.onload = async () => {
           const ymaps: YMapsV3 = (window as any).ymaps3;
           await ymaps.ready;
