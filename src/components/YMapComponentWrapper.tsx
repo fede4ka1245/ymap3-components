@@ -1,4 +1,4 @@
-import React, { useContext, useLayoutEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { YMapsContextState } from "./YMapsContextState";
 import { Package, YMapsComponentsState } from "../types";
 import useIsomorphicEffect from "../hooks/useIsomorphicEffect";

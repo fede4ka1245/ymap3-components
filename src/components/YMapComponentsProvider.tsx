@@ -1,4 +1,4 @@
-import React, { ReactNode, useLayoutEffect, useState } from "react";
+import React, { ReactNode, useState } from "react";
 import { YMapDefaultModules, YMapsComponentsState } from "../types";
 import { YMapsContextState } from "./YMapsContextState";
 import { initYamaps } from "../shared";
