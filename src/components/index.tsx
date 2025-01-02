@@ -12,6 +12,7 @@ import * as Clusterer from '@yandex/ymaps3-types/packages/clusterer';
 import * as ClustererReact from '@yandex/ymaps3-types/packages/clusterer/react';
 import { YMapsContextState } from "./YMapsContextState";
 import useIsomorphicEffect from "../hooks/useIsomorphicEffect";
+import {Apikeys} from "@yandex/ymaps3-types/imperative/config";
 
 class EventBus<DetailType = any> {
     private eventTarget: EventTarget;
@@ -24,12 +25,19 @@ class EventBus<DetailType = any> {
 
 const mapEventBus = new EventBus<string>('ymaps3-components');
 
-export const initYamaps = async (
+export const initYamaps = async ({
+    key,
+    lang = "ru_RU",
+    coordorder,
+    mode,
+    apiKeys
+}: {
     key: string,
-    lang: string = "ru_RU",
+    lang: string,
     coordorder?: 'latlong' | 'longlat',
     mode?: 'release' | 'debug',
-): Promise<YMapDefaultModules> => {
+    apiKeys?: Apikeys
+}): Promise<YMapDefaultModules> => {
     return new Promise(async (resolve, reject) => {
         try {
             if ((window as any).ymaps3) {
@@ -62,6 +70,11 @@ export const initYamaps = async (
                 script.onload = async () => {
                     const ymaps: YMapsV3 = (window as any).ymaps3;
                     await ymaps.ready;
+
+                    if (apiKeys) {
+                        ymaps.getDefaultConfig().setApikeys(apiKeys);
+                    }
+
                     const ymaps3Reactify = await ymaps.import("@yandex/ymaps3-reactify");
                     const reactify = ymaps3Reactify.reactify.bindTo(React, ReactDOM);
 
@@ -82,6 +95,7 @@ export const initYamaps = async (
 export interface YMapComponentsProviderProps {
     apiKey: string;
     lang?: string;
+    apiKeys?: Apikeys;
     coordorder?: 'latlong' | 'longlat';
     mode?: 'release' | 'debug';
     onLoad?: (params: YMapDefaultModules) => any;
@@ -96,12 +110,13 @@ const YMapComponentsProviderBase: React.FC<YMapComponentsProviderProps> = ({
    mode,
    children,
    onLoad,
-   onError
+   onError,
+   apiKeys
 }) => {
     const [state, setState] = useState<YMapsComponentsState>();
 
     useIsomorphicEffect(() => {
-        initYamaps(apiKey, lang, coordorder, mode)
+        initYamaps({ key: apiKey, lang: lang as string, coordorder, mode, apiKeys })
             .then((result) => {
                 setState(result);
                 onLoad?.(result);
