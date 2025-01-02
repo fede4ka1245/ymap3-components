@@ -25,7 +25,7 @@ npm i -D @yandex/ymaps3-types@latest
 - Example 1: [map and rect features with hints](https://codesandbox.io/p/sandbox/elegant-burnell-wxn9cy)
 - Example 2: [map with clusterer](https://codesandbox.io/p/sandbox/ymap3-components-xk3d74)
 - Example 3: [maps with routes](hhttps://codesandbox.io/p/sandbox/ymap3-routes-nncmsr?file=%2Fsrc%2FApp.js%3A2%2C39)
-(For routes you need to create an API key for the Distance Matrix and Route Planning in the Developer Dashboard)
+ (For routes you need to create an API key for the Distance Matrix and Route Planning in the Developer Dashboard)
 ## Motivation
 
 - keeps your components simple
