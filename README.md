@@ -3,9 +3,8 @@
 [![NPM Version](https://img.shields.io/npm/v/ymap3-components?logo=npm&color=gray)](https://www.npmjs.com/package/ymap3-components?activeTab=readme)
 [![npm bundle size](https://img.shields.io/bundlephobia/minzip/ymap3-components)](https://www.npmjs.com/package/ymap3-components?activeTab=readme)
 
-
 ### Library to get components of ymaps3 via <code>import</code>
-**This library is an alternative way of getting
+**React wrapper around ymaps3: This library is an alternative way of getting
 Yandex map components:** use <code>import</code>
 instead of creating script and getting components 
 via asynchronous <code>window.ymaps3.import</code>
@@ -145,6 +144,10 @@ interface YMapComponentsProviderProps {
   onError: (e?: unknown) => void
   children: ReactNode | ReactNode []
 }
+```
+
+```typescript
+type getYmaps3ReadyObject = () => Promise<YMapsV3>;
 ```
 
 #### Other components has same api as provided in [Official documentation](https://yandex.ru/dev/jsapi30/doc/ru/)

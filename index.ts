@@ -23,4 +23,5 @@ export {
   YMapCollection,
   YMapContainer,
   YMapFeatureDataSource,
+  getYmaps3ReadyObject
 } from './src/components';
