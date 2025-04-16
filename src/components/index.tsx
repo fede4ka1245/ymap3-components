@@ -38,6 +38,7 @@ export const initYamaps = async ({
     mode,
     apiKeys,
     reuseLoadPromise,
+    nonce
 }: {
     key: string,
     lang: string,
@@ -45,6 +46,7 @@ export const initYamaps = async ({
     mode?: 'release' | 'debug',
     apiKeys?: Apikeys,
     reuseLoadPromise?: boolean,
+    nonce?: string
 }): Promise<YMapDefaultModules> => {
         loadPromise = (reuseLoadPromise && loadPromise) || new Promise(async (resolve, reject) => {
             try {
@@ -62,6 +64,10 @@ export const initYamaps = async ({
                     const script = document.createElement("script");
                     document.body.appendChild(script);
                     script.type = "text/javascript";
+
+                    if (nonce) {
+                        script.nonce = nonce;
+                    }
 
                     const query = new URLSearchParams({
                         apikey: key,
@@ -112,6 +118,7 @@ export interface YMapComponentsProviderProps {
     onError?: (error: any) => void;
     children: ReactNode | ReactNode[];
     reuseLoadPromise?: boolean;
+    nonce?: string;
 }
 
 const YMapComponentsProviderBase: React.FC<YMapComponentsProviderProps> = ({
@@ -123,12 +130,13 @@ const YMapComponentsProviderBase: React.FC<YMapComponentsProviderProps> = ({
    onLoad,
    onError,
    apiKeys,
-   reuseLoadPromise
+   reuseLoadPromise,
+   nonce
 }) => {
     const [state, setState] = useState<YMapsComponentsState>();
 
     useIsomorphicEffect(() => {
-        initYamaps({ key: apiKey, lang: lang as string, coordorder, mode, apiKeys, reuseLoadPromise })
+        initYamaps({ key: apiKey, lang: lang as string, coordorder, mode, apiKeys, reuseLoadPromise, nonce })
             .then((result) => {
                 setState(result);
                 onLoad?.(result);
