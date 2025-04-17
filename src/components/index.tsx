@@ -13,6 +13,7 @@ import * as ClustererReact from '@yandex/ymaps3-types/packages/clusterer/react';
 import { YMapsContextState } from "./YMapsContextState";
 import useIsomorphicEffect from "../hooks/useIsomorphicEffect";
 import {Apikeys} from "@yandex/ymaps3-types/imperative/config";
+import {Reactify} from "@yandex/ymaps3-types/reactify";
 
 class EventBus<DetailType = any> {
     private eventTarget: EventTarget;
@@ -25,56 +26,31 @@ class EventBus<DetailType = any> {
 
 const mapEventBus = new EventBus<string>('ymaps3-components');
 
+let loadPromise: Promise<{
+    ymaps: YMapsV3,
+    reactify: Reactify
+}> | null = null;
+
 export const initYamaps = async ({
     key,
     lang = "ru_RU",
     coordorder,
     mode,
-    apiKeys
+    apiKeys,
+    reuseLoadPromise,
 }: {
     key: string,
     lang: string,
     coordorder?: 'latlong' | 'longlat',
     mode?: 'release' | 'debug',
-    apiKeys?: Apikeys
+    apiKeys?: Apikeys,
+    reuseLoadPromise?: boolean,
 }): Promise<YMapDefaultModules> => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            if ((window as any).ymaps3) {
-                const ymaps: YMapsV3 = (window as any).ymaps3;
-                await ymaps.ready;
-                const ymaps3Reactify = await ymaps.import("@yandex/ymaps3-reactify");
-                const reactify = ymaps3Reactify.reactify.bindTo(React, ReactDOM);
-
-                resolve({
-                    ymaps,
-                    reactify,
-                });
-            } else {
-                const script = document.createElement("script");
-                document.body.appendChild(script);
-                script.type = "text/javascript";
-
-                const query = new URLSearchParams({
-                    apikey: key,
-                    lang: lang,
-                });
-                if (coordorder) {
-                    query.set('coordorder', coordorder);
-                }
-                if (mode) {
-                    query.set('mode', mode);
-                }
-
-                script.src = `https://api-maps.yandex.ru/v3/?${query.toString()}`;
-                script.onload = async () => {
+        loadPromise = (reuseLoadPromise && loadPromise) || new Promise(async (resolve, reject) => {
+            try {
+                if ((window as any).ymaps3) {
                     const ymaps: YMapsV3 = (window as any).ymaps3;
                     await ymaps.ready;
-
-                    if (apiKeys) {
-                        ymaps.getDefaultConfig().setApikeys(apiKeys);
-                    }
-
                     const ymaps3Reactify = await ymaps.import("@yandex/ymaps3-reactify");
                     const reactify = ymaps3Reactify.reactify.bindTo(React, ReactDOM);
 
@@ -82,14 +58,48 @@ export const initYamaps = async ({
                         ymaps,
                         reactify,
                     });
-                };
+                } else {
+                    const script = document.createElement("script");
+                    document.body.appendChild(script);
+                    script.type = "text/javascript";
 
-                script.onerror = reject;
+                    const query = new URLSearchParams({
+                        apikey: key,
+                        lang: lang,
+                    });
+                    if (coordorder) {
+                        query.set('coordorder', coordorder);
+                    }
+                    if (mode) {
+                        query.set('mode', mode);
+                    }
+
+                    script.src = `https://api-maps.yandex.ru/v3/?${query.toString()}`;
+                    script.onload = async () => {
+                        const ymaps: YMapsV3 = (window as any).ymaps3;
+                        await ymaps.ready;
+
+                        if (apiKeys) {
+                            ymaps.getDefaultConfig().setApikeys(apiKeys);
+                        }
+
+                        const ymaps3Reactify = await ymaps.import("@yandex/ymaps3-reactify");
+                        const reactify = ymaps3Reactify.reactify.bindTo(React, ReactDOM);
+
+                        resolve({
+                            ymaps,
+                            reactify,
+                        });
+                    };
+
+                    script.onerror = reject;
+                }
+            } catch(e){
+                (e)
             }
-        } catch(e){
-            (e)
-        }
-    });
+        })
+
+        return loadPromise;
 };
 
 export interface YMapComponentsProviderProps {
@@ -101,6 +111,7 @@ export interface YMapComponentsProviderProps {
     onLoad?: (params: YMapDefaultModules) => any;
     onError?: (error: any) => void;
     children: ReactNode | ReactNode[];
+    reuseLoadPromise?: boolean;
 }
 
 const YMapComponentsProviderBase: React.FC<YMapComponentsProviderProps> = ({
@@ -111,12 +122,13 @@ const YMapComponentsProviderBase: React.FC<YMapComponentsProviderProps> = ({
    children,
    onLoad,
    onError,
-   apiKeys
+   apiKeys,
+   reuseLoadPromise
 }) => {
     const [state, setState] = useState<YMapsComponentsState>();
 
     useIsomorphicEffect(() => {
-        initYamaps({ key: apiKey, lang: lang as string, coordorder, mode, apiKeys })
+        initYamaps({ key: apiKey, lang: lang as string, coordorder, mode, apiKeys, reuseLoadPromise })
             .then((result) => {
                 setState(result);
                 onLoad?.(result);
