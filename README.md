@@ -138,6 +138,7 @@ another library's components as child nodes.
 interface YMapComponentsProviderProps {
   apiKey: string
   lang?: string
+  nonce?: string
   onLoad?: (params: {
     reactify: Reactify;
     ymaps: typeof import("@yandex/ymaps3-types/index");
