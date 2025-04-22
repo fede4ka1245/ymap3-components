@@ -144,6 +144,7 @@ interface YMapComponentsProviderProps {
   }) => any
   onError: (e?: unknown) => void
   children: ReactNode | ReactNode []
+  reuseLoadPromise?: boolean;
 }
 ```
 
