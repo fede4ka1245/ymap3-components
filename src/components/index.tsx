@@ -1,7 +1,7 @@
-import React, {ReactNode, useContext, useState} from "react";
+import React, {forwardRef, ReactNode, useContext, useState} from "react";
 import ReactDOM from "react-dom";
-import {Package, YMapsV3, YMapsComponentsState, YMapDefaultModules} from "../types";
-import YMapHint, { YMapHintContext } from "./YMapHint";
+import {Package, YMapDefaultModules, YMapsComponentsState, YMapsV3} from "../types";
+import YMapHint, {YMapHintContext} from "./YMapHint";
 import * as YMaps from '@yandex/ymaps3-types';
 import * as YMapsReact from '@yandex/ymaps3-types/react';
 import * as Controls from '@yandex/ymaps3-types/packages/controls';
@@ -10,10 +10,11 @@ import * as Markers from '@yandex/ymaps3-types/packages/markers';
 import * as MarkersReact from '@yandex/ymaps3-types/packages/markers/react';
 import * as Clusterer from '@yandex/ymaps3-types/packages/clusterer';
 import * as ClustererReact from '@yandex/ymaps3-types/packages/clusterer/react';
-import { YMapsContextState } from "./YMapsContextState";
+import {YMapsContextState} from "./YMapsContextState";
 import useIsomorphicEffect from "../hooks/useIsomorphicEffect";
 import {Apikeys} from "@yandex/ymaps3-types/imperative/config";
 import {Reactify} from "@yandex/ymaps3-types/reactify";
+import {validateYMapChildrenOrder} from "./validateYMapChildrenOrder";
 
 class EventBus<DetailType = any> {
     private eventTarget: EventTarget;
@@ -193,7 +194,11 @@ function YMapComponentFabric<RefType, ArgsType>(
         return <Component ref={ref} {...props} />;
     }
 
-    return React.forwardRef<RefType, ArgsType>(component);
+    const ForwardedRefComponent = React.forwardRef<RefType, ArgsType>(component);
+
+    ForwardedRefComponent.displayName = componentName;
+
+    return ForwardedRefComponent
 }
 
 export { YMapCustomClusterer } from "./YMapCustomClusterer";
@@ -229,7 +234,13 @@ export const YMapDefaultMarker = YMapComponentFabric<
 >("YMapDefaultMarker", Package.Markers);
 
 export type YMapProps = React.ComponentPropsWithoutRef<typeof YMapsReact.YMap>;
-export const YMap = YMapComponentFabric<YMaps.YMap, YMapProps>("YMap");
+export const YMap = forwardRef<YMaps.YMap, YMapProps>((props, ref) => {
+    validateYMapChildrenOrder(props)
+
+    const Component = YMapComponentFabric<YMaps.YMap, YMapProps>("YMap");
+
+    return <Component ref={ref} {...props}/>
+})
 
 export type YMapTileDataSourceProps = React.ComponentPropsWithoutRef<typeof YMapsReact.YMapTileDataSource>;
 export const YMapTileDataSource = YMapComponentFabric<YMaps.YMapTileDataSource, YMapTileDataSourceProps>("YMapTileDataSource");
