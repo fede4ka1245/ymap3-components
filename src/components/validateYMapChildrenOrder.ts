@@ -36,40 +36,58 @@ const EXPECTED_ORDER =  [
 	'YMapCustomClusterer'
 ] as const
 
+/**
+ * Extracts the `displayName` from a React component type.
+ * This validation work only for component that have forwardRef type, their type is object with `displayName` property.
+ * @param value - The `type` property of a React element (e.g., `child.type`).
+ * @returns The component's `displayName` if it exists and is a string; otherwise, `null`.
+ */
 function extractDisplayNameFromChildType(value: unknown): string | null {
 	if (
-		typeof value === 'object'
-		&& value !== null
-		&& 'displayName' in value
-		&& typeof value.displayName === 'string'
+		typeof value === 'object' &&
+		value !== null &&
+		'displayName' in value &&
+		typeof value.displayName === 'string'
 	) {
-		return value.displayName
+		return value.displayName;
 	}
 
-	return null
+	return null;
 }
 
-
+/**
+ * Validates the order of children passed to the `YMap` component.
+ *
+ * Certain child components like `YMapCustomClusterer` require a strict rendering order
+ * relative to other children. This function checks if the actual order of children matches
+ * the expected one and throws an error if a mismatch is found.
+ *
+ * @param props - Props passed to the `YMap` component, including its children.
+ *
+ * @throws Error if a required component (e.g., `YMapCustomClusterer`) is found and the
+ * children are not in the expected order.
+ */
 export function validateYMapChildrenOrder(props: YMapProps) {
-	const actualOrder: string[] = []
+	const actualOrder: string[] = [];
 
 	Children.forEach(props.children, (child) => {
 		if (!isValidElement(child)) {
-			return
+			return;
 		}
 
 		const displayName = extractDisplayNameFromChildType(child.type);
 
 		if (displayName) {
-			actualOrder.push(displayName)
+			actualOrder.push(displayName);
 		}
-	})
+	});
 
+	// Only validate order if a clusterer is present (indicating a need for strict order)
 	if (actualOrder.includes("YMapCustomClusterer")) {
 		for (let i = 0; i < EXPECTED_ORDER.length; i++) {
 			if (actualOrder[i] !== EXPECTED_ORDER[i]) {
 				throw new Error(
-					`The components are in the wrong order. Expected "${EXPECTED_ORDER[i]}", but received "${actualOrder[i]}" at position ${i}.`
+					`Invalid YMap children order. Expected "${EXPECTED_ORDER[i]}", but found "${actualOrder[i]}" at position ${i}.`
 				);
 			}
 		}
