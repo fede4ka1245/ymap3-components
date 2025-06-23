@@ -65,3 +65,5 @@ export const YMapCustomClusterer = React.forwardRef<
     />
   );
 });
+
+YMapCustomClusterer.displayName = 'YMapCustomClusterer';
